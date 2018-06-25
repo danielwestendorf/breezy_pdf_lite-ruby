@@ -1,0 +1,22 @@
+AllCops:
+  TargetRubyVersion: 2.3
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Metrics/LineLength:
+  Max: 110
+Metrics/MethodLength:
+  Max: 20
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Security/Open:
+  Enabled: false
+Naming/HeredocDelimiterNaming:
+  Enabled: false
