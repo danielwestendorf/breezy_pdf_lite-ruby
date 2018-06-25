@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    breezy_pdf_lite (0.1.0)
+    breezy_pdf_lite (0.0.1)
 
 GEM
   remote: https://rubygems.org/
