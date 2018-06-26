@@ -1,4 +1,8 @@
 # BreezyPDFLite
+
+[![Build Status](https://travis-ci.org/danielwestendorf/breezy_pdf_lite-ruby.svg?branch=master)](https://travis-ci.org/danielwestendorf/breezy_pdf_lite-ruby)
+[![Gem Version](https://badge.fury.io/rb/breezy_pdf_lite.svg)](https://badge.fury.io/rb/breezy_pdf_lite)
+
 A ruby client for [BreezyPDFLite](https://github.com/danielwestendorf/breezy-pdf-lite), a one-click-to-deploy microservice for converting HTML to PDF with Google Chrome. Send the library a chunk of HTML, get a PDF of it back. Configure how the PDF is rendered via [`meta` tags](https://github.com/danielwestendorf/breezy-pdf-lite#2-configure-with-meta-tags-optional) in the HTML.
 
 Use pragmatically, or as a Rack Middleware.
