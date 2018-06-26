@@ -1,8 +1,7 @@
-# BreezyPdfLite
+# BreezyPDFLite
+A ruby client for [BreezyPDFLite](https://github.com/danielwestendorf/breezy-pdf-lite), a one-click-to-deploy microservice for converting HTML to PDF with Google Chrome. Send the library a chunk of HTML, get a PDF of it back. Configure how the PDF is rendered via [`meta` tags](https://github.com/danielwestendorf/breezy-pdf-lite#2-configure-with-meta-tags-optional) in the HTML.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/breezy_pdf_lite`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Use pragmatically, or as a Rack Middleware.
 
 ## Installation
 
@@ -22,18 +21,51 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+BreezyPDFLite requires some configuration before you can use it. Somewhere in your application (perhaps in `config/intializers/breezy_pdf_lite.rb`), configure the `base_url`and the `secret_api_key` of your service. Get these from your Heroku configuration.
 
-## Development
+```ruby
+BreezyPDFLite.setup do |config|
+  config.secret_api_key = ENV["BREEZYPDF_SECRET_API_KEY"]
+  config.base_url = ENV.fetch("BREEZYPDF_BASE_URL", "http://localhost:5001")
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Middleware
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Add the Middleware to your stack.
 
-## Contributing
+_Ruby on Rails_
+```ruby
+# config/application.rb
+config.middleware.use BreezyPDFLite::Middleware
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/breezy_pdf_lite.
+Any URL ending in `.pdf` will be intercepted, rendered as HTML, rendered to a PDF, and then returned to the client.
+
+_Rack/Sinatra/etc_
+
+See `example/config.ru`
+
+### Pragmatic
+
+See `example/pragmatic.rb`
+
+
+## Examples
+Examples depend on the [BreezyPDFLite](https://github.com/danielwestendorf/breezy-pdf-lite) microservice being avialable.
+
+_Middleware_
+
+`BREEZYPDF_SECRET_API_KEY=YOURSECRETKEY BREEZYPDF_BASE_URL=https://YOURHEROKUAPPORWHATEVER.herokuapp.com/ rackup example/config.ru`
+
+Visit `https://localhost:9292` and click the link to download the PDF.
+
+_Pragmatic_
+
+`BREEZYPDF_SECRET_API_KEY=YOURSECRETKEY BREEZYPDF_BASE_URL=https://YOURHEROKUAPPORWHATEVER.herokuapp.com/ ruby example/pragmatic.rb`
+
+The PDF will be downloaded to `example/example.pdf`
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+See `LICENSE.txt`.
