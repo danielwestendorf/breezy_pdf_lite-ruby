@@ -15,7 +15,7 @@ module BreezyPDFLite::Intercept
           "Content-Length" => render_request.header["Content-Length"],
           "Content-Disposition" => render_request.header["Content-Disposition"]
         },
-        render_request.body
+        [render_request.body]
       ]
     rescue BreezyPDFLite::Intercept::UnRenderable
       response
@@ -24,7 +24,7 @@ module BreezyPDFLite::Intercept
     private
 
     def status
-      @status ||= response[0]
+      @status ||= response[0].to_i
     end
 
     def headers

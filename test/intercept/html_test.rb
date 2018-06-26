@@ -36,7 +36,7 @@ class BreezyPDFLite::Intercept::HTMLTest < BreezyTest
       assert_equal 201, status
       assert_equal 1234, headers["Content-Length"]
       assert_equal "application/pdf", headers["Content-Type"]
-      assert_kind_of StringIO, body
+      assert_kind_of Array, body
     end
 
     assert mock_request.verify
