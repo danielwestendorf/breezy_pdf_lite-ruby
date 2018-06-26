@@ -5,7 +5,7 @@ module BreezyPDFLite
   class Client
     def post(path, body)
       uri = URI.parse(BreezyPDFLite.base_url + path)
-      http = Net::HTTP.new(uri.host, uri.port).tap { |h| h.use_ssl = true }
+      http = Net::HTTP.new(uri.host, uri.port).tap { |h| h.use_ssl = uri.scheme == "https" }
       request = Net::HTTP::Post.new(uri.request_uri, headers)
 
       request.body = body
