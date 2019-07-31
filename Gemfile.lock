@@ -30,11 +30,11 @@ PLATFORMS
 
 DEPENDENCIES
   breezy_pdf_lite!
-  bundler (~> 1.16)
+  bundler (~> 2.0)
   minitest (~> 5.0)
   minitest-stub-const (~> 0.6)
   rake (~> 12.3)
   rubocop (= 0.73.0)
 
 BUNDLED WITH
-   1.16.0
+   2.0.2
