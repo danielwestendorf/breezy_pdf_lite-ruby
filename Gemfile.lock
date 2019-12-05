@@ -7,15 +7,15 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.0)
-    jaro_winkler (1.5.3)
+    jaro_winkler (1.5.4)
     minitest (5.13.0)
     minitest-stub-const (0.6)
-    parallel (1.17.0)
-    parser (2.6.3.0)
+    parallel (1.19.1)
+    parser (2.6.5.0)
       ast (~> 2.4.0)
     rainbow (3.0.0)
     rake (13.0.0)
-    rubocop (0.74.0)
+    rubocop (0.77.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -34,7 +34,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   minitest-stub-const (~> 0.6)
   rake (~> 13.0)
-  rubocop (= 0.74.0)
+  rubocop (= 0.77.0)
 
 BUNDLED WITH
    2.0.2
