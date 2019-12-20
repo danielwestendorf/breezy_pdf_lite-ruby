@@ -15,7 +15,7 @@ GEM
       ast (~> 2.4.0)
     rainbow (3.0.0)
     rake (13.0.0)
-    rubocop (0.77.0)
+    rubocop (0.78.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -34,7 +34,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   minitest-stub-const (~> 0.6)
   rake (~> 13.0)
-  rubocop (= 0.77.0)
+  rubocop (= 0.78.0)
 
 BUNDLED WITH
    2.0.2
