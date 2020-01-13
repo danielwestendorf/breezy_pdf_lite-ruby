@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    breezy_pdf_lite (0.0.1)
+    breezy_pdf_lite (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -37,4 +37,4 @@ DEPENDENCIES
   rubocop (= 0.79.0)
 
 BUNDLED WITH
-   2.0.2
+   2.1.2
