@@ -12,4 +12,4 @@ BreezyPDFLite.setup do |config|
 end
 
 use BreezyPDFLite::Middleware
-run proc { |_env| ["200", { "Content-Type" => "text/html" }, [html]] }
+run(proc { |_env| ["200", { "Content-Type" => "text/html" }, [html]] })

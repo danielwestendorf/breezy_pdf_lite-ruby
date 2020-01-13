@@ -6,10 +6,10 @@ class BreezyPDFLite::Intercept::BaseTest < BreezyTest
   def env
     {
       "rack.url_scheme" => "https",
-      "SERVER_NAME"     => "example.com",
-      "SERVER_PORT"     => "443",
-      "PATH_INFO"       => "/a/b.pdf",
-      "QUERY_STRING"    => "foo=bar"
+      "SERVER_NAME" => "example.com",
+      "SERVER_PORT" => "443",
+      "PATH_INFO" => "/a/b.pdf",
+      "QUERY_STRING" => "foo=bar"
     }
   end
 

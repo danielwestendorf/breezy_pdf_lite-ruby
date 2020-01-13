@@ -6,6 +6,7 @@ module BreezyPDFLite
     def mattr_reader(*syms)
       syms.each do |sym|
         raise NameError, "invalid attribute name: #{sym}" unless /\A[_A-Za-z]\w*\z/.match?(sym)
+
         class_eval(<<-EOS, __FILE__, __LINE__ + 1)
           @@#{sym} = nil unless defined? @@#{sym}
           def self.#{sym}
@@ -25,6 +26,7 @@ module BreezyPDFLite
     def mattr_writer(*syms)
       syms.each do |sym|
         raise NameError, "invalid attribute name: #{sym}" unless /\A[_A-Za-z]\w*\z/.match?(sym)
+
         class_eval(<<-EOS, __FILE__, __LINE__ + 1)
           @@#{sym} = nil unless defined? @@#{sym}
           def self.#{sym}=(obj)
