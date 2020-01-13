@@ -5,7 +5,7 @@ require "test_helper"
 class BreezyPDFLite::InterceptorTest < BreezyTest
   def test_non_matching_uri
     env = {
-      "REQUEST_URI"    => "/thing",
+      "REQUEST_URI" => "/thing",
       "REQUEST_METHOD" => "GET"
     }
 
@@ -33,13 +33,13 @@ class BreezyPDFLite::InterceptorTest < BreezyTest
   def test_matching_uri_and_method_for_html_post
     app = OpenStruct.new(call: true)
     env = {
-      "REQUEST_URI"     => "/thing.pdf",
-      "REQUEST_METHOD"  => "GET",
+      "REQUEST_URI" => "/thing.pdf",
+      "REQUEST_METHOD" => "GET",
       "rack.url_scheme" => "https",
-      "SERVER_NAME"     => "example.com",
-      "SERVER_PORT"     => "443",
-      "PATH_INFO"       => "/thing.pdf",
-      "QUERY_STRING"    => "a=b"
+      "SERVER_NAME" => "example.com",
+      "SERVER_PORT" => "443",
+      "PATH_INFO" => "/thing.pdf",
+      "QUERY_STRING" => "a=b"
     }
 
     intercept_mock = MiniTest::Mock.new
