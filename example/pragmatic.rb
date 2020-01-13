@@ -12,20 +12,13 @@ BreezyPDFLite.setup do |config|
   config.middleware_path_matchers = [/as-pdf.pdf/]
 end
 
-response = BreezyPDFLite::RenderRequest.new(html).submit
+render_request = BreezyPDFLite::RenderRequest.new(html)
 
-if response.code.to_i == 201
-  path = File.expand_path("example.pdf", __dir__)
-
-  FileUtils.rm(File.expand_path("example.pdf", __dir__)) if File.exist?(path)
-  File.new(path, "w").tap do |file|
-    file.write(response.body)
-
-    file.flush
-    file.close
-  end
-
-  puts "Downloaded to #{path}"
-else
-  puts "Unable to render to PDF, server responded with #{response.code}"
+begin
+  tempfile = render_request.to_file
+  puts tempfile.path
+  puts "Enter to remove..."
+  gets
+rescue BreezyPDFLite::BreezyPDFLiteError => e
+  puts "Unable to render PDF: #{e.message}"
 end

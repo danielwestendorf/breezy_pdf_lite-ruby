@@ -2,6 +2,7 @@
 
 require "uri"
 require "net/http"
+require "tempfile"
 
 require "breezy_pdf_lite/version"
 require "breezy_pdf_lite/util"
