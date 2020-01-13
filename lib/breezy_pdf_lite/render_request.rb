@@ -15,7 +15,8 @@ module BreezyPDFLite
       raise BreezyPDFLiteError, "#{response.code}: #{response.body}" if response.code != "201"
 
       @to_file ||= Tempfile.new(%w[response .pdf]).tap do |file|
-        file.write(response.body)
+        file.binmode
+        file.write response.body
         file.flush
         file.rewind
       end
