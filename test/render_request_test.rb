@@ -18,4 +18,22 @@ class BreezyPDFLite::RenderRequestTest < BreezyTest
 
     assert client_mock.verify
   end
+
+  def test_non_201_to_file
+    request = tested_class.new("blah")
+
+    request.stub(:submit, OpenStruct.new(code: "404")) do
+      assert_raises(BreezyPDFLite::BreezyPDFLiteError) do
+        request.to_file
+      end
+    end
+  end
+
+  def test_to_file
+    request = tested_class.new("blah")
+
+    request.stub(:submit, OpenStruct.new(code: "201", body: "blah")) do
+      assert_kind_of(Tempfile, request.to_file)
+    end
+  end
 end
