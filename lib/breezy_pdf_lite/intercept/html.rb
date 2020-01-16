@@ -8,12 +8,15 @@ module BreezyPDFLite::Intercept
 
       render_request = BreezyPDFLite::RenderRequest.new(body).submit
 
+      expires = 10.minutes.from_now.utc.strftime("%a, %e %b %Y %H:%M:%S GMT")
+
       [
         201,
         {
           "Content-Type" => "application/pdf",
           "Content-Length" => render_request.header["Content-Length"],
-          "Content-Disposition" => render_request.header["Content-Disposition"]
+          "Content-Disposition" => render_request.header["Content-Disposition"],
+          "Set-Cookie" => "breezy_pdf_downloaded=#{DateTime.now.to_i}; Expires=#{expires}"
         },
         [render_request.body]
       ]
