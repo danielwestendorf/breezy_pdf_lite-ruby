@@ -30,9 +30,7 @@ module BreezyPDFLite::Intercept
     end
 
     def path
-      BreezyPDFLite.middleware_path_matchers.reduce(env["PATH_INFO"]) do |path, matcher|
-        path.gsub(matcher, "")
-      end
+      env["PATH_INFO"].gsub(/\.pdf/, "")
     end
 
     def query_string
