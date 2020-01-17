@@ -8,16 +8,21 @@ module BreezyPDFLite::Intercept
 
       render_request = BreezyPDFLite::RenderRequest.new(body).submit
 
-      expires = 10.minutes.from_now.utc.strftime("%a, %e %b %Y %H:%M:%S GMT")
+      expires = (Time.now.utc + (60 * 10)).strftime("%a, %e %b %Y %H:%M:%S GMT")
+      timestamp = Time.now.utc.to_i
+      download_key = Rack::Utils.parse_query(env["QUERY_STRING"])["download_key"]
+
+      headers = {
+        "Content-Type" => "application/pdf",
+        "Content-Length" => render_request.header["Content-Length"],
+        "Content-Disposition" => render_request.header["Content-Disposition"]
+      }
+
+      headers["Set-Cookie"] = "breezy_pdf_downloaded_#{download_key}=#{timestamp}; Expires=#{expires}" if download_key
 
       [
         201,
-        {
-          "Content-Type" => "application/pdf",
-          "Content-Length" => render_request.header["Content-Length"],
-          "Content-Disposition" => render_request.header["Content-Disposition"],
-          "Set-Cookie" => "breezy_pdf_downloaded=#{DateTime.now.to_i}; Expires=#{expires}"
-        },
+        headers,
         [render_request.body]
       ]
     rescue BreezyPDFLite::Intercept::UnRenderable
