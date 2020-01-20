@@ -9,7 +9,7 @@ class BreezyPDFLite::Intercept::HTMLTest < BreezyTest
 
   def mocks
     response = OpenStruct.new(
-      status: "201",
+      code: "201",
       header: {
         "Content-Length" => 1234
       },

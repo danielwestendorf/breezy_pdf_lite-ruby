@@ -8,7 +8,7 @@ module BreezyPDFLite::Intercept
 
       render_request = BreezyPDFLite::RenderRequest.new(body).submit
 
-      if render_request.status != "201"
+      if render_request.code != "201"
         raise BreezyPDFLite::RenderError, "Status: #{render_request.status} body: #{render_request.body}"
       end
 
