@@ -12,7 +12,7 @@ module BreezyPDFLite
     end
 
     def to_file
-      raise BreezyPDFLiteError, "#{response.code}: #{response.body}" if response.code != "201"
+      raise RenderError, "#{response.code}: #{response.body}" if response.code != "201"
 
       @to_file ||= Tempfile.new(%w[response .pdf]).tap do |file|
         file.binmode
