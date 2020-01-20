@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["daniel@prowestech.com"]
 
   spec.summary       = "Ruby/rack middleware for BreezyPDF Lite. HTML to PDF."
-  spec.license       = "GPLv3"
+  spec.license       = "GPL-3.0"
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
