@@ -23,7 +23,7 @@ class BreezyPDFLite::RenderRequestTest < BreezyTest
     request = tested_class.new("blah")
 
     request.stub(:submit, OpenStruct.new(code: "404")) do
-      assert_raises(BreezyPDFLite::BreezyPDFLiteError) do
+      assert_raises(BreezyPDFLite::RenderError) do
         request.to_file
       end
     end

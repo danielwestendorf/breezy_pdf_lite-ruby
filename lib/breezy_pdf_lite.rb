@@ -17,7 +17,8 @@ module BreezyPDFLite
   autoload :Middleware,    "breezy_pdf_lite/middleware"
   autoload :RenderRequest, "breezy_pdf_lite/render_request"
 
-  BreezyPDFLiteError = Class.new(StandardError)
+  Error = Class.new(StandardError)
+  RenderError = Class.new(Error)
 
   mattr_accessor :secret_api_key
   @@secret_api_key = nil
