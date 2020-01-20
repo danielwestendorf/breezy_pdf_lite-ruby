@@ -36,7 +36,16 @@ module BreezyPDFLite::Intercept
     end
 
     def body
-      @body ||= response[2].respond_to?(:body) ? response[2].body : response[2].join
+      case response[2].class.name
+      when "ActionDispatch::Response::RackBody"
+        response[2].body
+      else
+        if response[2].respond_to?(:join)
+          response[2].join
+        else
+          response[2]
+        end
+      end
     end
 
     def response
