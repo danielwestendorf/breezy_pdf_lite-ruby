@@ -36,15 +36,15 @@ module BreezyPDFLite::Intercept
     end
 
     def body
-      case response[2].class.name
-      when "ActionDispatch::Response::RackBody"
-        response[2].body
+      if response[2].respond_to?(:join)
+        response[2].join
+      elsif response[2].respond_to?(:each)
+        content = []
+        response[2].each { |part| content << part }
+
+        content.join
       else
-        if response[2].respond_to?(:join)
-          response[2].join
-        else
-          response[2]
-        end
+        response[2]
       end
     end
 
