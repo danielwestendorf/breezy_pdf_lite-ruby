@@ -5,20 +5,22 @@ require "test_helper"
 class BreezyPDFLite::ClientTest < BreezyTest
   def test_post
     body = "bob"
-    http_mock = MiniTest::Mock.new
-    request_mock = MiniTest::Mock.new
-    request_mock.expect(:body=, true, [body])
+    path = "/foo"
+    uri = URI.parse(BreezyPDFLite.base_url + path)
+    headers = {
+      "Authorization": "Bearer #{BreezyPDFLite.secret_api_key}"
+    }
 
-    http_mock.expect(:tap, http_mock)
-    http_mock.expect(:request, OpenStruct.new(code: "201"), [request_mock])
+    request_mock = mock("Request")
+    request_mock.expects(:body=).with(body)
 
-    Net::HTTP.stub(:new, http_mock) do
-      Net::HTTP::Post.stub(:new, request_mock) do
-        tested_class.new.post("/test", body)
-      end
-    end
+    http_mock = mock("HTTP")
+    http_mock.expects(:use_ssl=).with(true)
+    http_mock.expects(:request).with(request_mock)
 
-    assert http_mock.verify
-    assert request_mock.verify
+    Net::HTTP.expects(:new).returns(http_mock)
+    Net::HTTP::Post.expects(:new).with(uri.request_uri, headers).returns(request_mock)
+
+    tested_class.new.post(path, body)
   end
 end

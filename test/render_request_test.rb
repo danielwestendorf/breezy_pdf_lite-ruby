@@ -3,37 +3,48 @@
 require "test_helper"
 
 class BreezyPDFLite::RenderRequestTest < BreezyTest
-  def test_submit
-    client_mock = MiniTest::Mock.new
-    client_mock.expect(
-      :post,
-      "Success",
-      ["/render/html", "blah"]
-    )
-
-    request = tested_class.new("blah")
-    request.stub(:client, client_mock) do
-      assert_equal("Success", request.submit)
-    end
-
-    assert client_mock.verify
+  def client_mock
+    @client_mock ||= mock("Client")
   end
 
-  def test_non_201_to_file
-    request = tested_class.new("blah")
+  def response_mock
+    @response_mock ||= mock("Client response")
+  end
 
-    request.stub(:submit, OpenStruct.new(code: "404")) do
-      assert_raises(BreezyPDFLite::RenderError) do
-        request.to_file
-      end
+  def test_response_successful
+    body = "foo"
+
+    response_mock.expects(:code).returns("201")
+    client_mock.expects(:post).with("/render/html", body).returns(response_mock)
+
+    BreezyPDFLite::Client.expects(:new).returns(client_mock)
+
+    tested_class.new(body).response
+  end
+
+  def test_response_unsuccessful
+    body = "foo"
+
+    response_mock.expects(:code).returns("500").twice
+    response_mock.expects(:body).returns("error")
+    client_mock.expects(:post).with("/render/html", body).returns(response_mock)
+
+    BreezyPDFLite::Client.expects(:new).returns(client_mock)
+
+    assert_raises(BreezyPDFLite::RenderError) do
+      tested_class.new(body).response
     end
   end
 
   def test_to_file
-    request = tested_class.new("blah")
+    body = "foo"
 
-    request.stub(:submit, OpenStruct.new(code: "201", body: "blah")) do
-      assert_kind_of(Tempfile, request.to_file)
-    end
+    response_mock.expects(:code).returns("201")
+    response_mock.expects(:body).returns("body")
+    client_mock.expects(:post).with("/render/html", body).returns(response_mock)
+
+    BreezyPDFLite::Client.expects(:new).returns(client_mock)
+
+    assert_kind_of Tempfile, tested_class.new(body).to_file
   end
 end

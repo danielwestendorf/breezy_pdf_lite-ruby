@@ -1,62 +1,34 @@
 # frozen_string_literal: true
 
+require "rack/request"
+require "rack/file"
+
 module BreezyPDFLite::Intercept
-  # :nodoc
+  # Takes the App's response body, and submits it to the breezypdf lite endpoint
+  # resulting in a file. File is then served with Rack::File
   class HTML < Base
     def call
-      raise BreezyPDFLite::Intercept::UnRenderable unless (200..299).cover?(status)
+      request = Rack::Request.new({})
+      path = render_request_file.path
 
-      render_request = BreezyPDFLite::RenderRequest.new(body).submit
-
-      if render_request.code != "201"
-        raise BreezyPDFLite::RenderError, "Status: #{render_request.status} body: #{render_request.body}"
-      end
-
-      [
-        201,
-        {
-          "Content-Type" => "application/pdf",
-          "Content-Length" => render_request.header["Content-Length"],
-          "Content-Disposition" => render_request.header["Content-Disposition"]
-        },
-        [render_request.body]
-      ]
-    rescue BreezyPDFLite::Intercept::UnRenderable
-      response
+      Rack::File.new(path, response_headers).serving(request, path)
     end
 
     private
 
-    def status
-      @status ||= response[0].to_i
+    def render_request
+      @render_request ||= BreezyPDFLite::RenderRequest.new(body)
     end
 
-    def headers
-      @headers ||= response[1]
+    def render_request_file
+      @render_request_file ||= render_request.to_file
     end
 
-    def body
-      if response[2].respond_to?(:join)
-        response[2].join
-      elsif response[2].respond_to?(:each)
-        content = []
-        response[2].each { |part| content << part }
-
-        content.join
-      else
-        response[2]
-      end
-    end
-
-    def response
-      @response ||= app.call(doctored_env)
-    end
-
-    def doctored_env
-      env.dup.tap do |hash|
-        hash["HTTP_ACCEPT"] = "text/html"
-        hash["PATH_INFO"]   = path
-      end
+    def response_headers
+      @response_headers ||= {
+        "Content-Type" => "application/pdf",
+        "Content-Disposition" => render_request.response.header["Content-Disposition"]
+      }
     end
   end
 end

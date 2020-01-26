@@ -3,18 +3,30 @@
 require "test_helper"
 
 class BreezyPDFLite::MiddlewareTest < BreezyTest
-  def test_invokes_interceptor
-    mock_intercept = MiniTest::Mock.new
-    mock_intercept.expect(:intercept!, true)
+  def test_a_post_request
+    app = mock
+    env = { "REQUEST_METHOD" => "post" }
 
-    mock_interceptor = MiniTest::Mock.new
-    mock_interceptor.expect(:new, mock_intercept, [1, 2])
+    app.expects(:call).with(env)
+    tested_class.new(app).call(env)
+  end
 
-    BreezyPDFLite.stub_const(:Interceptor, mock_interceptor) do
-      tested_class.new(1).call(2)
-    end
+  def test_a_get_request_with_invalid_path
+    app = mock
+    env = { "REQUEST_METHOD" => "get", "REQUEST_URI" => "/foo" }
 
-    assert mock_interceptor.verify
-    assert mock_intercept.verify
+    app.expects(:call).with(env)
+    tested_class.new(app).call(env)
+  end
+
+  def test_a_get_request_with_valid_path
+    app = proc { true }
+    env = { "REQUEST_METHOD" => "get", "REQUEST_URI" => "/foo.pdf" }
+
+    interceptor_mock = mock
+    interceptor_mock.expects(:call)
+
+    BreezyPDFLite::Interceptor.expects(:new).with(app, env).returns(interceptor_mock)
+    tested_class.new(app).call(env)
   end
 end
