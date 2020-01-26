@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "minitest/stub_const"
+
 require "breezy_pdf_lite"
 
 require "minitest/autorun"
+require "mocha/minitest"
 
 class BreezyTest < Minitest::Test
   def tested_class
