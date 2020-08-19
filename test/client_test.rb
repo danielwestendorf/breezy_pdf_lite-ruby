@@ -16,6 +16,8 @@ class BreezyPDFLite::ClientTest < BreezyTest
 
     http_mock = mock("HTTP")
     http_mock.expects(:use_ssl=).with(true)
+    http_mock.expects(:open_timeout=).with(BreezyPDFLite.open_timeout)
+    http_mock.expects(:read_timeout=).with(BreezyPDFLite.read_timeout)
     http_mock.expects(:request).with(request_mock)
 
     Net::HTTP.expects(:new).returns(http_mock)
