@@ -29,6 +29,12 @@ module BreezyPDFLite
   mattr_accessor :middleware_path_matchers
   @@middleware_path_matchers = [/\.pdf/]
 
+  mattr_accessor :open_timeout
+  @@open_timeout = 30
+
+  mattr_accessor :read_timeout
+  @@read_timeout = 30
+
   def self.setup
     yield self
   end
