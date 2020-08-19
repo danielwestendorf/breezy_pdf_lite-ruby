@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+release_version = case ARGV[0]
+                  when 'major'
+                    'major'
+                  when 'minor'
+                    'minor'
+                  when 'pre'
+                    'pre'
+                  when /\d+\.\d+\.\d+$/
+                    ARGV[0]
+                  else
+                    'patch'
+                  end
+
+version = `gem bump --no-commit --version #{release_version} | awk '{ print $4 }' | head -n 1`.strip
+
+system('bundle')
+
+system('git add lib/breezy_pdf_lite/version.rb')
+system('git add Gemfile.lock')
+
+system("git commit -m \"Bump breezy_pdf_lite to #{version}\"")
+
+system("git tag v#{version}")
+system('git push')
+system('git push --tags')
+
+system('gem build breezy_pdf_lite')
+
+puts 'OTP Code:'
+code = gets.strip
+system("gem push --otp #{code} breezy_pdf_lite-#{version}.gem")
+
+system("rm breezy_pdf_lite-#{version}.gem")
