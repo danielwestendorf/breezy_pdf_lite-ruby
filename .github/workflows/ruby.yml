@@ -31,3 +31,6 @@ jobs:
       run: bundle install
     - name: Run tests
       run: bundle exec rake
+    - name: Rubocop checks
+      uses: gimenete/rubocop-action@1.0
+
