@@ -17,7 +17,7 @@ GEM
     rake (13.0.1)
     regexp_parser (1.7.1)
     rexml (3.2.4)
-    rubocop (0.89.1)
+    rubocop (0.90.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -41,7 +41,7 @@ DEPENDENCIES
   mocha (= 1.11.2)
   rack (~> 2.0)
   rake (~> 13.0)
-  rubocop (= 0.89.1)
+  rubocop (= 0.90.0)
 
 BUNDLED WITH
    2.1.2
