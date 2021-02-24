@@ -7,7 +7,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.1)
-    minitest (5.14.1)
+    minitest (5.14.4)
     mocha (1.11.2)
     parallel (1.19.2)
     parser (2.7.1.4)
