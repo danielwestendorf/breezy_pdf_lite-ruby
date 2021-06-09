@@ -25,5 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "mocha", "1.11.2"
   spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rubocop", "0.89.1"
+  spec.add_development_dependency "rubocop", "1.16.1"
 end
