@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rack", "~> 3.0"
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "minitest", "~> 5.0"
-  spec.add_development_dependency "mocha", "1.11.2"
+  spec.add_development_dependency "mocha", "2.0.2"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rubocop", "1.44.1"
 end

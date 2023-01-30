@@ -9,7 +9,8 @@ GEM
     ast (2.4.2)
     json (2.6.3)
     minitest (5.17.0)
-    mocha (1.11.2)
+    mocha (2.0.2)
+      ruby2_keywords (>= 0.0.5)
     parallel (1.22.1)
     parser (3.2.0.0)
       ast (~> 2.4.1)
@@ -31,6 +32,7 @@ GEM
     rubocop-ast (1.24.1)
       parser (>= 3.1.1.0)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     unicode-display_width (2.4.2)
 
 PLATFORMS
@@ -40,7 +42,7 @@ DEPENDENCIES
   breezy_pdf_lite!
   bundler (~> 2.0)
   minitest (~> 5.0)
-  mocha (= 1.11.2)
+  mocha (= 2.0.2)
   rack (~> 3.0)
   rake (~> 13.0)
   rubocop (= 1.44.1)
