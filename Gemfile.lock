@@ -12,7 +12,7 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
-    rack (2.2.3)
+    rack (3.0.4.1)
     rainbow (3.0.0)
     rake (13.0.1)
     regexp_parser (1.7.1)
@@ -39,7 +39,7 @@ DEPENDENCIES
   bundler (~> 2.0)
   minitest (~> 5.0)
   mocha (= 1.11.2)
-  rack (~> 2.0)
+  rack (~> 3.0)
   rake (~> 13.0)
   rubocop (= 0.89.1)
 
