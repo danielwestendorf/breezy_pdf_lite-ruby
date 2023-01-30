@@ -29,6 +29,7 @@ jobs:
     # uses: ruby/setup-ruby@v1
       uses: ruby/setup-ruby@v1 # v1.127.0
       with:
+        ruby-version: 2.7
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run rubocop
       run: bundle exec rubocop --parallel
