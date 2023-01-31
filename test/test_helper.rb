@@ -36,7 +36,7 @@ class BreezyTest < Minitest::Test
         # Go down the ancestors to check if it is owned directly. The check
         # stops when we reach Object or the end of ancestors tree.
         constant = constant.ancestors.each_with_object(constant) do |ancestor, const|
-          break const    if ancestor == Object
+          break const if ancestor == Object
           break ancestor if ancestor.const_defined?(name, false)
         end
 

@@ -22,7 +22,7 @@ module BreezyPDFLite
 
     def headers
       {
-        "Authorization": "Bearer #{BreezyPDFLite.secret_api_key}"
+        Authorization: "Bearer #{BreezyPDFLite.secret_api_key}"
       }
     end
   end

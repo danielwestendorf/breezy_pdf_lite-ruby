@@ -49,7 +49,7 @@ module BreezyPDFLite
     def doctored_env
       env.dup.tap do |hash|
         hash["HTTP_ACCEPT"] = "text/html"
-        hash["PATH_INFO"]   = path
+        hash["PATH_INFO"] = path
       end
     end
 
