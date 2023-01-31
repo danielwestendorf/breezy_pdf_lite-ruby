@@ -11,10 +11,10 @@ require "breezy_pdf_lite/util"
 module BreezyPDFLite
   extend BreezyPDFLite::Util
 
-  autoload :Client,        "breezy_pdf_lite/client"
-  autoload :Intercept,     "breezy_pdf_lite/intercept"
-  autoload :Interceptor,   "breezy_pdf_lite/interceptor"
-  autoload :Middleware,    "breezy_pdf_lite/middleware"
+  autoload :Client, "breezy_pdf_lite/client"
+  autoload :Intercept, "breezy_pdf_lite/intercept"
+  autoload :Interceptor, "breezy_pdf_lite/interceptor"
+  autoload :Middleware, "breezy_pdf_lite/middleware"
   autoload :RenderRequest, "breezy_pdf_lite/render_request"
 
   Error = Class.new(StandardError)
