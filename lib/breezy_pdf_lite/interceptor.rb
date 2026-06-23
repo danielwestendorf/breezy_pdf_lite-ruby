@@ -54,7 +54,7 @@ module BreezyPDFLite
     end
 
     def path
-      env["PATH_INFO"].gsub(/\.pdf/, "")
+      env["PATH_INFO"].gsub(".pdf", "")
     end
   end
 end
