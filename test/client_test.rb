@@ -8,7 +8,8 @@ class BreezyPDFLite::ClientTest < BreezyTest
     path = "/foo"
     uri = URI.parse(BreezyPDFLite.base_url + path)
     headers = {
-      Authorization: "Bearer #{BreezyPDFLite.secret_api_key}"
+      "Authorization" => "Bearer #{BreezyPDFLite.secret_api_key}",
+      "Content-Type" => "application/x-www-form-urlencoded"
     }
 
     request_mock = mock("Request")
