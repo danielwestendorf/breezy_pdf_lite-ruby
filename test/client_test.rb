@@ -25,4 +25,27 @@ class BreezyPDFLite::ClientTest < BreezyTest
 
     tested_class.new.post(path, body)
   end
+
+  def test_post_sends_form_content_type
+    request = nil
+    written = +""
+    socket = Object.new
+    socket.define_singleton_method(:continue_timeout) { nil }
+    socket.define_singleton_method(:write) do |*strings|
+      strings.each { |string| written << string }
+      strings.sum(&:bytesize)
+    end
+
+    http_mock = mock("HTTP")
+    http_mock.expects(:use_ssl=).with(true)
+    http_mock.expects(:open_timeout=).with(BreezyPDFLite.open_timeout)
+    http_mock.expects(:read_timeout=).with(BreezyPDFLite.read_timeout)
+    http_mock.expects(:request).with { |net_http_request| request = net_http_request }
+
+    Net::HTTP.expects(:new).returns(http_mock)
+    tested_class.new.post("/foo", "bob")
+
+    request.exec(socket, "1.1", request.path)
+    assert_match(/\r\nContent-Type: application\/x-www-form-urlencoded\r\n/i, written)
+  end
 end
