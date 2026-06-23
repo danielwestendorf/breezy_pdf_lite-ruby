@@ -19,7 +19,7 @@ module BreezyPDFLite
             @@#{sym}
           end
         EOS
-        class_variable_set("@@#{sym}", yield) if block_given?
+        class_variable_set(:"@@#{sym}", yield) if block_given?
       end
     end
 
@@ -39,7 +39,7 @@ module BreezyPDFLite
             @@#{sym} = obj
           end
         EOS
-        send("#{sym}=", yield) if block_given?
+        send(:"#{sym}=", yield) if block_given?
       end
     end
 
